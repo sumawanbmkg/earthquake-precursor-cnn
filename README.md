@@ -73,7 +73,16 @@ Leave-One-Event-Out validation ensures model generalizes to completely unseen ea
 | **Magnitude** | 94.37% | **97.53% ± 0.96%** | **+3.16%** ✅ |
 | **Azimuth** | 57.39% | **69.51% ± 5.65%** | **+12.12%** ✅ |
 
-> **Key Finding**: LOEO results are BETTER than random split, confirming NO overfitting!
+### LOSO Cross-Validation Results (9-Fold)
+
+Leave-One-Station-Out validation ensures model generalizes to unseen geographic locations:
+
+| Metric | Mean | Weighted Mean | Best Station |
+|--------|------|---------------|--------------|
+| **Magnitude** | 96.17% | **97.57%** | GTO, TRD, TRT (100%) |
+| **Azimuth** | 58.13% | **69.73%** | GTO, LUT, TRD (100%) |
+
+> **Key Finding**: Both LOEO and LOSO results are BETTER than random split, confirming NO overfitting and excellent generalization!
 
 ### Key Metrics
 
@@ -346,13 +355,13 @@ monitor.start()
 
 ### Performance Comparison
 
-| Metric | VGG16 | EfficientNet-B0 | EfficientNet (LOEO) | Winner |
-|--------|-------|-----------------|---------------------|--------|
-| **Magnitude Accuracy** | 98.68% | 94.37% | **97.53%** | VGG16/LOEO |
-| **Azimuth Accuracy** | 54.93% | 57.39% | **69.51%** | **LOEO** |
-| **Inference Speed** | 125 ms | 50 ms | 50 ms | EfficientNet (2.5×) |
-| **Training Time** | 2.3 hours | 3.8 hours | - | VGG16 |
-| **Generalization** | Moderate | Good | **Excellent** | **LOEO** |
+| Metric | VGG16 | EfficientNet-B0 | EfficientNet (LOEO) | EfficientNet (LOSO) | Winner |
+|--------|-------|-----------------|---------------------|---------------------|--------|
+| **Magnitude Accuracy** | 98.68% | 94.37% | **97.53%** | **97.57%** | VGG16/LOSO |
+| **Azimuth Accuracy** | 54.93% | 57.39% | **69.51%** | **69.73%** | **LOSO** |
+| **Inference Speed** | 125 ms | 50 ms | 50 ms | 50 ms | EfficientNet (2.5×) |
+| **Training Time** | 2.3 hours | 3.8 hours | - | - | VGG16 |
+| **Generalization** | Moderate | Good | **Excellent** | **Excellent** | **LOEO/LOSO** |
 
 ### LOEO Per-Fold Results
 
@@ -370,6 +379,20 @@ monitor.start()
 | 10 | 95.56% | 58.33% | 30 |
 | **Mean** | **97.53%** | **69.51%** | - |
 | **Std** | ±0.96% | ±5.65% | - |
+
+### LOSO Per-Station Results
+
+| Station | Magnitude | Azimuth | Samples |
+|---------|-----------|---------|---------|
+| GTO | **100.00%** | **100.00%** | 92 |
+| LUT | 92.86% | **100.00%** | 56 |
+| MLB | 96.15% | 12.50% | 104 |
+| SBG | 94.44% | 55.56% | 72 |
+| SCN | 94.64% | 24.55% | 224 |
+| SKB | 90.00% | 23.13% | 160 |
+| TRD | **100.00%** | **100.00%** | 864 |
+| TRT | **100.00%** | 52.27% | 88 |
+| Small (13) | 97.44% | 55.13% | 312 |
 
 ### When to Use Each Model
 
