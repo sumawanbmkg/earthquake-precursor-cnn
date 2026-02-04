@@ -75,7 +75,9 @@ This repository contains the implementation of our research on earthquake precur
 
 Both models focus on physically meaningful patterns (ULF frequency bands 0.001-0.01 Hz):
 
-![Grad-CAM Comparison](figures/gradcam_comparison.png)
+| Large Event (M6.0+) | Medium Event (M5.0-5.9) | Moderate Event (M4.0-4.9) |
+|---------------------|-------------------------|---------------------------|
+| ![Large](figures/Large_MLB_2021-04-16_comparison.png) | ![Medium](figures/Medium_SCN_2018-01-17_comparison.png) | ![Moderate](figures/Moderate_SCN_2018-10-29_comparison.png) |
 
 ---
 
