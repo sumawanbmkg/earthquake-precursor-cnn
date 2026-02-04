@@ -85,7 +85,7 @@ model.eval()
 ## Download from GitHub Releases
 
 If models are not included in the repository (due to size), download from:
-- [GitHub Releases](https://github.com/yourusername/earthquake-precursor-cnn/releases)
+- [GitHub Releases](https://github.com/sumawanbmkg/earthquake-precursor-cnn/releases)
 
 ## Hyperparameters
 
@@ -111,3 +111,4 @@ If models are not included in the repository (due to size), download from:
   "epochs": 11
 }
 ```
+

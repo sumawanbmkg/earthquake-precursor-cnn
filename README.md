@@ -91,7 +91,7 @@ Both models focus on physically meaningful patterns (ULF frequency bands 0.001-0
 ### Step 1: Clone Repository
 
 \\\ash
-git clone https://github.com/yourusername/earthquake-precursor-cnn.git
+git clone https://github.com/sumawanbmkg/earthquake-precursor-cnn.git
 cd earthquake-precursor-cnn
 \\\
 
@@ -125,7 +125,7 @@ pip install -r requirements.txt
 python scripts/download_models.py
 
 # Or manually download from:
-# https://github.com/yourusername/earthquake-precursor-cnn/releases
+# https://github.com/sumawanbmkg/earthquake-precursor-cnn/releases
 \\\
 
 ### Step 5: Verify Installation
@@ -526,7 +526,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 For questions, issues, or collaborations:
 
 - **Email**: [your.email@institution.edu]
-- **GitHub Issues**: [https://github.com/yourusername/earthquake-precursor-cnn/issues](https://github.com/yourusername/earthquake-precursor-cnn/issues)
+- **GitHub Issues**: [https://github.com/sumawanbmkg/earthquake-precursor-cnn/issues](https://github.com/sumawanbmkg/earthquake-precursor-cnn/issues)
 - **Research Gate**: [Your Profile]
 - **Google Scholar**: [Your Profile]
 
@@ -537,7 +537,7 @@ For questions, issues, or collaborations:
 - **Paper**: [Link to published paper]
 - **Supplementary Materials**: [docs/supplementary.pdf](docs/supplementary.pdf)
 - **Dataset**: [Link to dataset]
-- **Pre-trained Models**: [GitHub Releases](https://github.com/yourusername/earthquake-precursor-cnn/releases)
+- **Pre-trained Models**: [GitHub Releases](https://github.com/sumawanbmkg/earthquake-precursor-cnn/releases)
 - **Demo**: [Link to online demo]
 
 ---
@@ -555,4 +555,5 @@ For questions, issues, or collaborations:
 **Last Updated**: February 4, 2026  
 **Version**: 1.0.0  
 **Status**: Active Development
+
 
