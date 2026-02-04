@@ -1,0 +1,36 @@
+{
+  "magnitude_classes": [
+    "Normal",
+    "Moderate",
+    "Medium",
+    "Large"
+  ],
+  "azimuth_classes": [
+    "Normal",
+    "N",
+    "NE",
+    "E",
+    "SE",
+    "S",
+    "SW",
+    "W",
+    "NW"
+  ],
+  "magnitude_to_idx": {
+    "Normal": 0,
+    "Moderate": 1,
+    "Medium": 2,
+    "Large": 3
+  },
+  "azimuth_to_idx": {
+    "Normal": 0,
+    "N": 1,
+    "NE": 2,
+    "E": 3,
+    "SE": 4,
+    "S": 5,
+    "SW": 6,
+    "W": 7,
+    "NW": 8
+  }
+}

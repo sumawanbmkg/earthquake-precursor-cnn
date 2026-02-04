@@ -97,3 +97,8 @@ tensorboard/
 # Optuna
 optuna_studies/
 *.db
+
+# Large model files (use GitHub Releases instead)
+models/*.pth
+!models/README.md
+!models/*.json
