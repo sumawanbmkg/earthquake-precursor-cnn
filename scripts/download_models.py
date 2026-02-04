@@ -26,21 +26,27 @@ except ImportError:
     from tqdm import tqdm
 
 
-# Model configurations
+RELEASE_BASE = "https://github.com/sumawanbmkg/earthquake-precursor-cnn/releases/download/v1.0.0"
+
+# Model configurations with split parts
 MODELS = {
     'efficientnet': {
         'filename': 'best_efficientnet_smote_model.pth',
-        'url': 'https://github.com/sumawanbmkg/earthquake-precursor-cnn/releases/download/v1.0.0/best_efficientnet_smote_model.pth',
         'size_mb': 54,
-        'md5': None,  # Will be updated after upload
-        'description': 'EfficientNet-B0 (recommended for production)'
+        'md5': '457549bb8d1e5f796787745430014edc',
+        'description': 'EfficientNet-B0 (recommended for production)',
+        'parts': [
+            'best_efficientnet_smote_model.part001',
+            'best_efficientnet_smote_model.part002',
+            'best_efficientnet_smote_model.part003',
+        ]
     },
     'vgg16': {
         'filename': 'best_vgg16_model.pth',
-        'url': 'https://github.com/sumawanbmkg/earthquake-precursor-cnn/releases/download/v1.0.0/best_vgg16_model.pth',
         'size_mb': 1256,
-        'md5': None,  # Will be updated after upload
-        'description': 'VGG16 (highest magnitude accuracy)'
+        'md5': '5804d2b155e7787b95647b1ccb7ee9a6',
+        'description': 'VGG16 (highest magnitude accuracy)',
+        'parts': [f'best_vgg16_model.part{i:03d}' for i in range(1, 54)]
     }
 }
 
@@ -84,7 +90,7 @@ def verify_md5(filepath: Path, expected_md5: str) -> bool:
 
 
 def download_model(model_name: str, output_dir: Path) -> bool:
-    """Download a specific model."""
+    """Download a specific model (handles split parts)."""
     if model_name not in MODELS:
         print(f"Unknown model: {model_name}")
         print(f"Available models: {', '.join(MODELS.keys())}")
@@ -93,37 +99,57 @@ def download_model(model_name: str, output_dir: Path) -> bool:
     model_info = MODELS[model_name]
     output_path = output_dir / model_info['filename']
     
-    # Check if already exists
+    # Check if already exists and valid
     if output_path.exists():
-        print(f"Model already exists: {output_path}")
-        response = input("Download again? [y/N]: ").strip().lower()
-        if response != 'y':
-            return True
+        if verify_md5(output_path, model_info['md5']):
+            print(f"✓ Model already exists and verified: {output_path}")
+            response = input("Download again? [y/N]: ").strip().lower()
+            if response != 'y':
+                return True
     
     print(f"\nDownloading {model_info['description']}...")
-    print(f"Size: ~{model_info['size_mb']} MB")
-    print(f"URL: {model_info['url']}")
+    print(f"Size: ~{model_info['size_mb']} MB ({len(model_info['parts'])} parts)")
     
-    success = download_file(
-        url=model_info['url'],
-        output_path=output_path,
-        description=model_info['filename']
-    )
+    # Create temp directory for parts
+    temp_dir = output_dir / '.temp_parts'
+    temp_dir.mkdir(parents=True, exist_ok=True)
     
-    if success:
-        # Verify checksum if available
-        if model_info['md5']:
-            print("Verifying checksum...")
-            if verify_md5(output_path, model_info['md5']):
-                print("✓ Checksum verified")
-            else:
-                print("✗ Checksum mismatch! File may be corrupted.")
-                return False
+    # Download all parts
+    downloaded_parts = []
+    for i, part_name in enumerate(model_info['parts']):
+        part_url = f"{RELEASE_BASE}/{part_name}"
+        part_path = temp_dir / part_name
+        
+        print(f"\n[{i+1}/{len(model_info['parts'])}] Downloading {part_name}...")
+        
+        if download_file(part_url, part_path, part_name):
+            downloaded_parts.append(part_path)
+        else:
+            print(f"✗ Failed to download {part_name}")
+            return False
+    
+    # Merge parts
+    print(f"\nMerging {len(downloaded_parts)} parts...")
+    with open(output_path, 'wb') as outfile:
+        for part_path in downloaded_parts:
+            with open(part_path, 'rb') as part_file:
+                outfile.write(part_file.read())
+    
+    # Verify checksum
+    print("Verifying checksum...")
+    if verify_md5(output_path, model_info['md5']):
+        print("✓ Checksum verified")
+        
+        # Cleanup temp files
+        for part_path in downloaded_parts:
+            part_path.unlink()
+        temp_dir.rmdir()
         
         print(f"✓ Downloaded: {output_path}")
         return True
-    
-    return False
+    else:
+        print("✗ Checksum mismatch! File may be corrupted.")
+        return False
 
 
 def main():

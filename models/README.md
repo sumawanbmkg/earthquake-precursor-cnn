@@ -4,34 +4,56 @@ This directory contains pre-trained models for earthquake precursor detection.
 
 ## Available Models
 
-| Model | File | Size | Magnitude Acc | Azimuth Acc | Download |
-|-------|------|------|---------------|-------------|----------|
-| **VGG16** | `best_vgg16_model.pth` | 1.26 GB | 98.68% | 54.93% | [Download](https://github.com/sumawanbmkg/earthquake-precursor-cnn/releases/download/v1.0.0/best_vgg16_model.pth) |
-| **EfficientNet-B0** | `best_efficientnet_smote_model.pth` | 54 MB | 94.37% | 57.39% | [Download](https://github.com/sumawanbmkg/earthquake-precursor-cnn/releases/download/v1.0.0/best_efficientnet_smote_model.pth) |
+| Model | File | Size | Parts | Magnitude Acc | Azimuth Acc |
+|-------|------|------|-------|---------------|-------------|
+| **VGG16** | `best_vgg16_model.pth` | 1.26 GB | 53 | 98.68% | 54.93% |
+| **EfficientNet-B0** | `best_efficientnet_smote_model.pth` | 54 MB | 3 | 94.37% | 57.39% |
 
-## Quick Download
+## Quick Download (Recommended)
 
-### Option 1: Using Python Script
+The easiest way to download models:
 
 ```bash
 python scripts/download_models.py
 ```
 
-### Option 2: Using wget/curl
+This will automatically:
+1. Download all parts from GitHub Releases
+2. Merge them into the complete model file
+3. Verify the checksum
+
+### Download Specific Model
 
 ```bash
-# Download EfficientNet-B0 (recommended, smaller)
-wget https://github.com/sumawanbmkg/earthquake-precursor-cnn/releases/download/v1.0.0/best_efficientnet_smote_model.pth -O models/best_efficientnet_smote_model.pth
+# Download only EfficientNet (recommended, smaller)
+python scripts/download_models.py --model efficientnet
 
-# Download VGG16 (larger, higher magnitude accuracy)
-wget https://github.com/sumawanbmkg/earthquake-precursor-cnn/releases/download/v1.0.0/best_vgg16_model.pth -O models/best_vgg16_model.pth
+# Download only VGG16 (larger, higher accuracy)
+python scripts/download_models.py --model vgg16
 ```
 
-### Option 3: Manual Download
+## Manual Download
 
-1. Go to [Releases](https://github.com/sumawanbmkg/earthquake-precursor-cnn/releases)
-2. Download the model files from the latest release
-3. Place them in this `models/` directory
+Due to GitHub's file size limits, models are split into parts (<25MB each).
+
+1. Go to [Releases](https://github.com/sumawanbmkg/earthquake-precursor-cnn/releases/tag/v1.0.0)
+2. Download all `.part*` files for your desired model
+3. Use the merge script:
+
+```bash
+# For EfficientNet
+python scripts/merge_model.py --manifest models/parts/efficientnet/best_efficientnet_smote_model.manifest.txt --output models/
+
+# For VGG16
+python scripts/merge_model.py --manifest models/parts/vgg16/best_vgg16_model.manifest.txt --output models/
+```
+
+## Checksums
+
+| Model | MD5 |
+|-------|-----|
+| VGG16 | `5804d2b155e7787b95647b1ccb7ee9a6` |
+| EfficientNet-B0 | `457549bb8d1e5f796787745430014edc` |
 
 ## Model Architecture
 
