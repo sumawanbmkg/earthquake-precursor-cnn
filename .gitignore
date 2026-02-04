@@ -1,0 +1,99 @@
+﻿# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.class
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# PyTorch
+*.pth
+*.pt
+*.ckpt
+*.safetensors
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb_checkpoints/
+
+# Environment
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Data (large files)
+data/raw/
+data/processed/
+*.csv
+*.xlsx
+*.h5
+*.hdf5
+
+# Models (large files - use Git LFS or external hosting)
+models/*.pth
+models/*.pt
+!models/README.md
+
+# Results
+results/
+experiments/
+logs/
+*.log
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Documentation builds
+docs/_build/
+docs/_static/
+docs/_templates/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+*.cover
+
+# Weights & Biases
+wandb/
+
+# TensorBoard
+runs/
+tensorboard/
+
+# Optuna
+optuna_studies/
+*.db
