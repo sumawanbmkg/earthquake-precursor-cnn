@@ -20,10 +20,10 @@ from read_mdata import read_604rcsv_new_python
 
 # SSH Configuration
 SSH_CONFIG = {
-    'host': '202.90.198.224',
+    'host': '202.90.xxx.xxx',
     'port': 4343,
-    'username': 'precursor',
-    'password': 'otomatismon'
+    'username': 'XXX__XXX',
+    'password': '&&&****'
 }
 
 class GeomagneticDataFetcher:
